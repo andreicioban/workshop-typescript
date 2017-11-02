@@ -2,6 +2,7 @@ import { Gender, validateGender } from '../constants/Gender'
 import { Equals } from '../models/equals'
 
 export class Pokemon implements Equals<Pokemon> {
+    public id?: string
     public name: string
     public height: string
     public weight: string

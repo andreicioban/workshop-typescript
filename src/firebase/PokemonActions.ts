@@ -11,7 +11,14 @@ export class PokemonActions {
     public getAll(userId: string): Promise<Pokemon[]> {
         return new Promise<Pokemon[]>((resolve: (value: Pokemon[]) => void, reject: (err: any) => void) => {
             this.dbRef.child(userId).once('value', (snap) => {
-                resolve(snap.val())
+                const pokes = snap.val()
+                const pokesArray: Pokemon[] = []
+                for (var key in pokes) {
+                    if (pokes.hasOwnProperty(key)) {
+                        pokesArray.push(Object.assign({id: key}, pokes[key]))
+                    }
+                }
+                resolve(pokesArray)
             })
         })
     }

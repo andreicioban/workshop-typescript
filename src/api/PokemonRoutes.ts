@@ -17,6 +17,7 @@ export namespace PokemonAPI {
 
         app.get(`${route}/:pokemonId`, authMiddleware, (req: AuthRequest, res: Response) => {
             firebase.pokemonActions.getOne(req.user.user_id, req.params.pokemonId).then((pokemon: Pokemon) => {
+                pokemon.id = req.params.pokemonId
                 res.send({success: true, pokemon: pokemon})
             }).catch((err) => { res.send(err) })
         })
