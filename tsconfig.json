@@ -58,7 +58,7 @@
             "src/types/*"
         ]
     },
-    "lib": [
+    "lib": [ //add this manually
       "es2016"
     ]
   },
