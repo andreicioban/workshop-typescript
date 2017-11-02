@@ -57,7 +57,10 @@
             "node_modules/*",
             "src/types/*"
         ]
-    }
+    },
+    "lib": [
+      "es2016"
+    ]
   },
   "include": [
     "src/**/*"

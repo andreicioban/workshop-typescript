@@ -21,6 +21,14 @@ export class App {
         
         this.app.use(logger('dev'))
     }
+    public allowCORS(): void {
+        this.app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+         });
+    }
 
     public initRoutes(): void {
         this.app.get('/', function (req: Request, res: Response) {

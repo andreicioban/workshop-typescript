@@ -1,12 +1,15 @@
 import * as admin from 'firebase-admin'
 import * as fs from 'fs'
 import * as path from 'path'
-import { User } from '../models/user'
+import { UserActions } from './UserActions'
+import { PokemonActions } from './PokemonActions'
 
 export class FireBaseAdmin {
     private accountKeyLocation: string
     private serviceAccount: any
     private firebase: admin.app.App
+    public userActions: UserActions
+    public pokemonActions: PokemonActions
 
     constructor(keyLocation: string) {
         this.accountKeyLocation = keyLocation
@@ -16,15 +19,8 @@ export class FireBaseAdmin {
             credential: admin.credential.cert(this.serviceAccount),
             databaseURL: `https://${this.serviceAccount.project_id}.firebaseio.com`
         });
+        this.userActions = new UserActions(this.firebase)
+        this.pokemonActions = new PokemonActions(this.firebase)
     }
-    public addUser(user: User): Promise<admin.auth.UserRecord> {
-        const newUserPromise = this.firebase.auth().createUser(user)
-        newUserPromise.then((userRecord) => {
-            console.log("Successfully created new user:", userRecord);
-        })
-        .catch((error) => {
-            console.log("Error creating new user:", error);
-        })
-        return newUserPromise
-    }
+    
 }
