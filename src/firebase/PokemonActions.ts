@@ -8,27 +8,27 @@ export class PokemonActions {
         this.firebase = firebase
         this.dbRef = firebase.database().ref('workshop-typescript').child('pokemons')
     }
-    public getAll(): Promise<Pokemon[]> {
+    public getAll(userId: string): Promise<Pokemon[]> {
         return new Promise<Pokemon[]>((resolve: (value: Pokemon[]) => void, reject: (err: any) => void) => {
-            this.dbRef.once('value', (snap) => {
+            this.dbRef.child(userId).once('value', (snap) => {
                 resolve(snap.val())
             })
         })
     }
-    public getOne(id: string): Promise<Pokemon> {
+    public getOne(userId: string, id: string): Promise<Pokemon> {
         return new Promise<Pokemon>((resolve: (value: Pokemon) => void, reject: (err: any) => void) => {
-            this.dbRef.child(id).once('value', (snap) => {
+            this.dbRef.child(userId).child(id).once('value', (snap) => {
                 resolve(snap.val())
             })
         })
     }
-    public addPokemon(pok: Pokemon): Promise<admin.database.Reference> {
-        return this.dbRef.push(pok)
+    public addPokemon(userId: string, pok: Pokemon): Promise<admin.database.Reference> {
+        return this.dbRef.child(userId).push(pok)
     }
-    public updatePokemon(id: string, pok: Pokemon): Promise<void> {
-        return this.dbRef.child(id).update(pok)
+    public updatePokemon(userId: string, id: string, pok: Pokemon): Promise<void> {
+        return this.dbRef.child(userId).child(id).update(pok)
     }
-    public deletePokemon(id: string): Promise<void> {
-        return this.dbRef.child(id).remove()
+    public deletePokemon(userId: string, id: string): Promise<void> {
+        return this.dbRef.child(userId).child(id).remove()
     }
 }

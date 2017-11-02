@@ -23,7 +23,7 @@ export namespace UserAPI {
 
         app.get('/api/token', (req: Request, res: Response) => {
             if(req.query.firebaseToken){
-                firebase.userActions.isAuthenticated(req.query.firebaseToken).then((usr) => {
+                firebase.userActions.decodeToken(req.query.firebaseToken).then((usr) => {
                     res.send(usr)
                 }).catch((err) => { res.send(err) })
             } else {

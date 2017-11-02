@@ -18,14 +18,8 @@ export class UserActions {
         return newUserPromise
     }
 
-    public isAuthenticated(idToken: string): Promise<admin.auth.DecodedIdToken> {
-        const promisedDecodedToken = this.firebase.auth().verifyIdToken(idToken)
-        promisedDecodedToken.then(function(decodedToken) {
-            console.log('Token for:', decodedToken)
-        }).catch(function(error) {
-            console.log("Error verifying token:", error)
-        });
-        return promisedDecodedToken
+    public decodeToken(idToken: string): Promise<admin.auth.DecodedIdToken> {
+        return this.firebase.auth().verifyIdToken(idToken)
     }
 
     public getAllUsers(perPage: number = 50): Promise<admin.auth.ListUsersResult> {
