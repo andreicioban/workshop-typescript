@@ -107,7 +107,14 @@ Add the `x-auth` header with the firebase token value
 ```json
 {
     "success": true,
-    "pokemon": "https://workshop-typescript.firebaseio.com/workshop-typescript/pokemons/10sDkLOBjPgvdEF5rWjWzOauByH3/-KxyVBu5s3yJeF11IGEl"
+    "pokemon": {
+        "id": "-KxyMB3Xpi5kpKOdScJI",
+        "abilities": "Coding",
+        "gender": "M",
+        "height": "128 cm",
+        "name": "Codosaurus1",
+        "weight": "65kg"
+    }
 }
 ```
 

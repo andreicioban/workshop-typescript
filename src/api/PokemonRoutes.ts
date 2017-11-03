@@ -30,7 +30,7 @@ export namespace PokemonAPI {
 
         app.post(route, authMiddleware, (req: AuthRequest, res: Response) => {
             firebase.pokemonActions.addPokemon(req.user.user_id, req.body).then((pokemonRef) => {
-                res.send({ success: true, pokemon: pokemonRef.toJSON() })
+                res.send({ success: true, pokemon: Object.assign({id: pokemonRef.key}, req.body) })
             }).catch((err) => { res.send(err) })
         })
 
